@@ -1,8 +1,9 @@
 import express, { urlencoded } from 'express';
 import cors from 'cors';
 import { HTTP } from './constants.js';
-import healthCheckRoute from './routes/health-check/healthCheck.js';
 import errorMiddleWare from './middleware/error.middleware.js';
+import authRouter from './routes/auth.router.js';
+import healthCheckRoute from './routes/healthCheck.js';
 
 
 const app = express();
@@ -15,7 +16,10 @@ app.use(cors({
 app.use(express.json());
 app.use(express.urlencoded({ limit:'50mb',extended:true}));
 
-app.use(healthCheckRoute);
+
+app.use('/api/v1',healthCheckRoute);
+app.use('/api/v1/auth',authRouter);
+
 
 app.use('*',async (req,res)=>{
   res.status(HTTP.BAD_GATEWAY).json({

@@ -1,5 +1,5 @@
 import { Router } from "express";
-import { HTTP } from "../../constants.js";
+import { HTTP } from "../constants.js";
 const healthCheckRoute = Router();
 healthCheckRoute.get("/health-check",async(req,res)=>{
   try {
