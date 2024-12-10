@@ -1,22 +1,15 @@
+import ServerError from '../utils/server.error.js';
 import jwt from 'jsonwebtoken';
-
-export const authMiddleware = (req, res, next) => {
+const isAuthorizedUser = async(req,res,next)=>{
   try {
-    const token = req.cookies.token;
-    if (!token) return res.status(401).json({ success: false, message: 'Unauthorized' });
-
-    const decoded = jwt.verify(token, process.env.SECRET_KEY);
-    req.user = decoded;
-
-    next();
+      const {hrmAuthToken} = req.cookies;
+      const user =jwt.verify(hrmAuthToken,process.env.JWT_SECRET);
+      req.user = user;
+      next();
   } catch (error) {
-    res.status(403).json({ success: false, message: 'Forbidden' });
-  }
-};
 
-export const roleMiddleware = (requiredRole) => (req, res, next) => {
-  if (req.user.role !== requiredRole) {
-    return res.status(403).json({ success: false, message: 'Access denied' });
+    return next(new ServerError(501,"Internal Server Error"));
   }
-  next();
-};
+}
+
+export default isAuthorizedUser;
