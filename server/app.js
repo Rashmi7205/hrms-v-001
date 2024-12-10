@@ -6,10 +6,12 @@ import authRouter from './routes/auth.router.js';
 import healthCheckRoute from './routes/healthCheck.js';
 import cookieParser from 'cookie-parser';
 import empRouter from './routes/emp.routes.js';
+import morgan from 'morgan';
 
 
 const app = express();
 
+app.use(morgan('combined'));
 app.use(cors({
   origin: ['http://localhost:3000'],
   credentials: true,

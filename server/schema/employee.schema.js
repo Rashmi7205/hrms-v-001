@@ -1,29 +1,30 @@
 import mongoose,{Schema} from 'mongoose';
 
 const EmployeeSchema = new Schema({
-    uid:{type:mongoose.Schema.Types.ObjectId, ref:'User',required:true},
+    uid:{type:String,required:true},
+    emp_id:{type:String,required:true},
     name: { type: String, required: true },
     position: { type: String, required: true },
-    deptName: { type: String, required: true },
-    dateOfJoining: { type: Date, required: true },
-    phoneNumber: { type: String, required: true },
-    alternateNumber:{type:String,required:true},
+    dept_name: { type: String, required: true },
+    date_of_joining: { type: Date, required: true },
+    phone_number: { type: String, required: true },
+    alternate_number:{type:String,required:true},
     email: { type: String, required: true,unique:true},
-    passportNumber: { type: String },
-    passportExpDate: { type: Date,},
+    passport_number: { type: String },
+    passport_exp_date: { type: Date,},
     dob: { type: Date, required: true },
-    profilePic:{type:String},
+    profile_pic:{type:String},
     status:{type:String,default:"active"},
     skills:{type:[String]},
-    maritalStatus:{type:String},
-    bankInfo: { type: [mongoose.Schema.Types.ObjectId], ref: 'BankInfo',},
+    marital_status:{type:String},
+    bank_info: { type: [mongoose.Schema.Types.ObjectId], ref: 'BankInfo',},
     experiences: {type:[
         {
             company_name: String,
             designation: String,
             from: Date,
-            to: Date,
-            desc:String
+        from: Date,
+            role_desc:String
         }
     ]},
     leaves: { type: [mongoose.Schema.Types.ObjectId], ref: 'Leave' },
@@ -31,11 +32,11 @@ const EmployeeSchema = new Schema({
 
 
   const BankInfoSchema = new Schema({
-    nameOfBank: { type: String, required: true },
-    accountNumber:{type:String,required:true},
-    panNo: { type: String,},
-    ifscNo: { type: String, required: true },
+    name_of_bank: { type: String, required: true },
+    account_number:{type:String,required:true,unique:true},
+    ifsc_no: { type: String, required: true },
+    account_type: { type: String, required: true },
   },{timestamps:true});
 
 export const BankInfo = mongoose.model('BankInfo', BankInfoSchema);
-export default mongoose.model('User', EmployeeSchema);
+export default mongoose.model('Employee', EmployeeSchema);
