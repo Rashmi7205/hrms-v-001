@@ -23,6 +23,7 @@ export const uploadFile = async (filePath,bucketId,filename) => {
       ID.unique(),
       InputFile.fromPath(`${filePath}`, filename)
     );
+    fs.unlinkSync(filePath);
     return result;
   } catch (error) {
     console.error('File upload failed:', error);

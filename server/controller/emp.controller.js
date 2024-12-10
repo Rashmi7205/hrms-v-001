@@ -89,7 +89,7 @@ const saveEmpDocumentDetails  = async(req,res,next)=>{
     req.files.forEach(async (file)=>{
       const uploadedFile = await uploadFile(file.path, process.env.APPWRITE_DOCUMENT_BUCKET_ID,docName);
       if(uploadedFile){
-        const document = Document.create({
+        const document =await Document.create({
           uid:req.user.clerk_id,
           emp_id:empId,
           name:docName,
@@ -98,7 +98,6 @@ const saveEmpDocumentDetails  = async(req,res,next)=>{
         });
         await document.save();
       }
-
     });
     return res.status(201).json({
       success:true,message:"Document Uploaded Successfully"
