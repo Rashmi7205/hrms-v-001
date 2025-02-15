@@ -30,3 +30,30 @@ export const uploadFile = async (filePath,bucketId,filename) => {
     return null;
   }
 };
+export const getSavedDocuments=async(fileId,bucketId)=>{
+  try {
+    if(!fileId || !bucketId) throw new Error("File Id Missing");
+    const result = storage.getFileView(bucketId,fileId);
+    return result;
+  } catch (error) {
+    return error;
+  }
+}
+export const updateDocument = async(bucketId,fileId,filePath)=>{
+  try {
+    if (!fileId || !bucketId) throw new Error("File Id Missing");
+    const result = await storage.updateFile(bucketId,fileId,InputFile.fromPath(filePath));
+    return result;
+  } catch (error) {
+    return error;
+  }
+}
+export const deleteDocument = async(bucketId,fileId)=>{
+  try {
+    if(!fileId) throw new Error("File Id Missing");
+    const result = await storage.deleteFile(bucketId,fileId);
+    return result;
+  } catch (error) {
+    return error;
+  }
+}
