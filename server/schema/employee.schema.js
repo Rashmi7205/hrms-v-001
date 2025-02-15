@@ -17,7 +17,7 @@ const EmployeeSchema = new Schema({
     status:{type:String,default:"active"},
     skills:{type:[String]},
     marital_status:{type:String},
-    bank_info: { type: [mongoose.Schema.Types.ObjectId], ref: 'BankInfo',},
+    bank_info: { type: [mongoose.Schema.Types.ObjectId], ref: 'bankinfos',},
     experiences: {type:[
         {
             company_name: String,
@@ -32,6 +32,7 @@ const EmployeeSchema = new Schema({
 
 
   const BankInfoSchema = new Schema({
+    emp_id: { type: mongoose.Schema.Types.ObjectId, ref:"Employee",required:true},
     name_of_bank: { type: String, required: true },
     account_number:{type:String,required:true,unique:true},
     ifsc_no: { type: String, required: true },
