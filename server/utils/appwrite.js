@@ -1,6 +1,5 @@
 import { Client, ID, InputFile, Storage } from 'node-appwrite';
 import fs from 'fs';
-import path from 'path';
 import { config } from 'dotenv';
 
 config();

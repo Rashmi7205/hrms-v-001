@@ -7,8 +7,7 @@ const isAuthorizedUser = async(req,res,next)=>{
       req.user = user;
       next();
   } catch (error) {
-
-    return next(new ServerError(501,"Internal Server Error"));
+    return next(new ServerError(401,'You are not authorized to access this route'));
   }
 }
 

@@ -7,6 +7,8 @@ import healthCheckRoute from './routes/healthCheck.js';
 import cookieParser from 'cookie-parser';
 import empRouter from './routes/emp.routes.js';
 import morgan from 'morgan';
+import JobRouter from './routes/job.routes.js';
+import ApplicantRouter from './routes/applicant.routes.js';
 
 
 const app = express();
@@ -25,6 +27,8 @@ app.use(express.urlencoded({ limit:'50mb',extended:true}));
 app.use('/api/v1',healthCheckRoute);
 app.use('/api/v1/auth',authRouter);
 app.use('/api/v1/emp',empRouter);
+app.use('/api/v1/job',JobRouter);
+app.use('/api/v1/applicant',ApplicantRouter);
 
 
 app.use('*',async (req,res)=>{
